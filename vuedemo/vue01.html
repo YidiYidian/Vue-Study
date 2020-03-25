@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+<body>
+
+    <div class = 'myapp'>
+        <h1>{{msg}}</h1>
+        <h1>site:{{site}}</h1>
+        <h1>url:{{url}}</h1>
+        <h1>{{details()}}</h1>
+
+    </div>
+
+    <script >
+        new Vue ({
+            el:'.myapp',
+            data:{
+                msg:"Hello 陶大神",
+                site:'一点一滴之家',
+                url:'www.baidu.com'
+            },
+            methods:{
+                details:function(){
+                    return this.site+"梦想起源地";
+                }
+            }
+        })
+
+    </script>
+
+    <style>
+        .myapp{
+            margin-left: 30%;
+            position: absolute;
+            top: 10%;
+            background-color: bisque;
+        }
+    </style>
+</body>
+</html>

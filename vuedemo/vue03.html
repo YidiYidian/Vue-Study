@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 02</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <style>
+        .class1 {
+            background-color: blue;
+        }
+
+        .avtive{
+
+            background-color: blueviolet;
+        }
+
+        .bbstyle{
+
+            font-size: larger;
+        }
+    </style>
+</head>
+
+<body>
+    <div id='myapp03'>
+        <div v-html="message"></div>
+        <h1>{{message}}</h1>
+        <label for="r1">改变颜色</label> <input type="checkbox" id="r1" v-model='use'>
+        <br><br>
+        <div v-bind:class="{'class1':use}">
+            v-bind:class 指令
+        </div>
+        <p v-if="seen">能不能看到我</p>
+        <pre><a v-bind:href='url'>百度链接</a> </pre>
+        <p>点击事件监听</p>
+        <button v-on:click="dosomething()">点我啊</button>
+
+        <!-- 数据的双向绑定 -->
+        <p>{{msg|filter01}}</p>
+        <input v-model="msg">
+        <br>
+        <button v-on:click="reserve()">点我反转</button>
+        <!-- v-for -->
+        <div>
+            <ol>
+                <li v-for='site in sites'>
+                    {{site.name}}
+                    <br>
+
+                </li>
+
+            </ol>
+
+            <ul>
+                <li v-for='site in sitesArry'>
+                    {{site}}
+                    <br>
+
+                </li>
+
+            </ul>
+            <ul>
+                <template v-for='site in sites'>
+                    <li>{{site.name}}</li>
+                    <li>---------------</li>
+                </template>
+
+            </ul>
+
+            <ul>
+                <li v-for='(value,key,index) in object'>
+                    {{index+1}}:{{key}}:{{value}}
+                </li>
+
+            </ul>
+
+            <ul>
+                <li v-for='n in 10'>
+                    {{n}}
+                </li>
+
+            </ul>
+
+        </div>
+        <h1>计算属性</h1>
+        <div>
+            {{msg.split('').reverse().join("")}}
+            <p>计算后为{{reversemsg}}</p>
+            <p>使用方法处理后{{reversemsg2()}}</p>
+            <p>
+                {{stt}}
+            </p>
+
+        </div>
+
+
+
+
+
+
+    </div>
+    <div id='app2'>
+
+        <!-- 监听属性 -->
+
+        <p style="font-size: large;">计数器：{{counter}}</p>
+        <button @click="counter++">点击按钮</button>
+        <br><br><br>
+        <p>千米是：<input type="text" v-model='kilometers'></p>
+        <p>米是：<input type="text" v-model='meters'></p>
+        <p id='info'></p>
+
+        <p class='static' :class= '{avtive:isactive,bbstyle:cc}'>
+            样式demo
+        </p>
+        <div @click.ctrl='dosomething'>
+            13243243111
+
+        </div>
+    </div>
+
+
+
+    <script type="text/javascript">
+
+        var vm = new Vue({
+
+            el: '#myapp03',
+            data: {
+                message: "<h1>你好</h1></br><h1>ni hao</h1>",
+                use: false,
+                seen: false,
+                url: 'www.baidu.com',
+                msg: 'abcdefg',
+                sites: [
+                    { name: 1111 },
+                    { name: 2222 },
+                    { name: 3333 }
+                ],
+                sitesArry: [
+                    1111, 222, 333
+                ],
+                object: {
+                    name: '菜鸟教程',
+                    url: 'http://www.runoob.com',
+                    slogan: '学的不仅是技术，更是梦想！'
+
+
+                }
+            },
+            methods: {
+                dosomething: function () {
+                    alert("你点了哦");
+                },
+
+                reserve: function () {
+                    this.msg = this.msg.split('').reverse().join('');
+                },
+
+                reversemsg2: function () {
+                    return this.msg.split('').reverse().join('');
+
+                }
+            },
+            filters: {
+                filter01: function (value) {
+
+                    if (!value) {
+                        return '';
+                    }
+                    return value.charAt(0).toUpperCase() + value.slice(1);
+
+                }
+            },
+            computed: {
+                reversemsg: function () {
+                    return this.msg.split('').reverse().join('');
+
+                },
+                stt: {
+
+                    //getter
+                    get: function () {
+                        return this.url + this.msg;
+
+                    },
+                    //setter
+                    set: function (newValue) {
+                        var namenew = newValue.split(' ');
+                        this.url = namenew[0];
+                        this.msg = namenew[namenew.length - 1];
+
+
+                    }
+
+
+                }
+
+            }
+        });
+
+        vm.stt = '菜鸟教程 http://www.runoob.com';
+
+        var vm2 = new Vue({
+
+            el: '#app2',
+            data: {
+                counter: 1,
+                kilometers: 0,
+                meters: 0,
+                isactive:true,
+                cc:true
+            },
+            methods: {
+                dosomething:function(){
+
+                    alert("11111");
+                }
+
+            },
+            computed: {
+
+            },
+            watch: {
+                kilometers: function (val) {
+                    this.kilometers = val;
+                    this.meters = val * 1000;
+
+                },
+                meters: function (val) {
+
+                    this.kilometers = val / 1000;
+                    this.meters = val;
+                }
+
+            }
+        });
+
+        vm2.$watch('counter', function (a, b) {
+
+            alert(b + '变成了' + a);
+        });
+        vm2.$watch('kilometers', function (newdata, olddata) {
+
+            document.getElementById('info').innerHTML = olddata + '改成了' + newdata;
+
+        })
+
+    </script>
+
+</body>
+
+</html>

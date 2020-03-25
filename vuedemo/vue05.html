@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <h1>自定义指令</h1>
+        <input v-focus>
+        <br>
+        <input v-find='msg'>
+
+    </div>
+
+    <script>
+
+        Vue.directive('focus', {
+
+            inserted: function (el1) {
+
+                el1.focus();
+            }
+        })
+
+        new Vue({
+
+            el: "#app",
+            data: {
+                msg:'111'
+            },
+            methods: {
+
+            },
+            directives: {
+                find: {
+                    inserted: function (el) {
+                        el.focus();
+                    },
+                    bind: function (el, binding, vnode) {
+
+                        var s = JSON.stringify;
+                        el.innerHTML =
+                            'name=' + binding.name;
+                    }
+                }
+            }
+
+        })
+
+    </script>
+
+
+</body>
+
+</html>

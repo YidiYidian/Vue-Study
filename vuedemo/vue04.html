@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 测试实例 - 菜鸟教程(runoob.com)</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+
+    <div id='app01'>
+        <input type="text" v-model='msg1' placeholder="请编辑我...">
+        <p>输入的信息为：{{msg1}}</p>
+        <br>
+        <p>单个复选框</p>
+        <input type="checkbox" id="chec1" v-model='check'>
+        <label for="chec1">{{check}}</label>
+        <br>
+        <input type="checkbox" id="chec2" value='tianmao' v-model='checkarry'>
+        <label for="chec2">tianmao</label>
+        <input type="checkbox" id="chec3" value='taobao' v-model='checkarry'>
+        <label for="chec3">taobao</label>
+        <input type="checkbox" id="chec4" value='jingdong' v-model='checkarry'>
+        <label for="chec4">jingdong</label>
+        <p>复选框是：{{checkarry}}</p>
+
+
+        <!-- 单选框 -->
+        <input type="radio" id="rad" value="baidu" v-model='picked'>
+        <label for="rad">baidu</label>
+        <br>
+        <input type="radio" id="rad2" value="google" v-model='picked'>
+        <label for="rad2">google</label>
+        <p>单选选择的是：{{picked}}</p>
+        <br>
+        <!-- select选择列表 -->
+        <select id="ssss" v-model='selected'>
+            <option value="">选择列表 </option>
+            <option value="www.baidu.com">百度</option>
+            <option value="www.google.com">谷歌</option>
+        </select>
+
+        选择的是{{selected}}
+        <br>
+
+        输入内容是<input type="text" v-model.lazy='msg1'>
+        <br>
+
+        输入内容是<input type="text" v-model.number='msg1'>
+        <br>
+
+        输入内容是<input type="text" v-model.trim='msg1'>
+
+        <br>
+        <componentdemo1></componentdemo1>
+
+        <componentdemo2></componentdemo2>
+
+        <componentdemo3 eeeee='hello'></componentdemo3>
+        <br>
+        <input type="text" v-model.lazy='msg1'>
+        <componentdemo4 :com4='msg1'></componentdemo4>
+        <br>
+        <ol>
+            <com05 v-for='site in sites' :site111=site></com05>
+        </ol>
+
+        <br>
+
+        <p>{{counter}}</p>
+        <com06 @hhh = 'handler'></com06>
+        <com06 @hhh = 'handler'></com06>
+
+    </div>
+
+
+    <script type="text/javascript">
+
+        // 注册组件_全局组件
+        Vue.component('componentdemo1', {
+            template: '<p>注册的第一个组件</p>'
+        })
+
+        // 局部组件
+        var childcomponent = {
+
+            template: '<h1>注册的局部组件</h1>'
+        }
+        //定义子组件
+        var componentdemo3child = {
+            props: ['eeeee'],
+            template: '<span>{{this.eeeee}}</span>'
+        }
+
+        var com05name = {
+            props: ['site111'],
+            template: '<li>{{site111.name}}</li>'
+        }
+        Vue.component('componentdemo4', {
+            props: ['com4'],
+
+            template: '<span>输入的值为：{{com4}}</span>'
+        })
+
+        Vue.component('com06',{
+
+            template:'<button @click = "meth">{{total}}</button>',
+            data:function(){
+                return{
+                    total:0
+                }
+                
+            },
+            methods:{
+                meth:function(){
+                    this.total+=1;
+                    this.$emit('hhh')
+                }
+
+            }
+
+
+
+        })
+
+        new Vue({
+
+            el: '#app01',
+            data: {
+                check: false,
+                msg1: 111,
+                checkarry: [],
+                picked: 'google',
+                selected: '',
+                sites: [
+                    { 'name': 'baidu' },
+                    { "name": 'google' }
+                ],
+                counter:0
+            },
+            components: {
+                componentdemo2: childcomponent,
+                componentdemo3: componentdemo3child,
+                com05: com05name
+
+
+            },
+            methods: {
+                handler:function(){
+
+                    this.counter+=1;
+
+                }
+
+            },
+            filters: {
+
+            },
+            watch: {
+
+            }
+
+
+        })
+
+
+
+
+    </script>
+
+</body>
+
+</html>

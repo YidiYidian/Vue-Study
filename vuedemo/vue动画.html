@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<head>
+
+    <meta charset="utf-8">
+
+    <title>vue 动画练习</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <style>
+        .trans-enter-active,
+        .trans-leave-active {
+
+            transition: opacity 2s;
+        }
+
+
+        .trans-enter-active,
+        .trans-leave-active
+
+        /* .fade-leave-active, 2.1.8 版本以下 */
+            {
+            opacity: 0
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+
+        <p>vue动画练习</p>
+        <button @click='show =!show'>点我</button>
+        <transition name='trans'>
+            <p v-show='show' :style='styleobject'> 动画显示 </p>
+        </transition>
+
+    </div>
+
+    <script>
+
+        new Vue({
+            el: '#app',
+            data: {
+                show: true,
+                styleobject: {
+                    fontSize: '30px',
+                    color: 'red'
+                }
+            },
+            methods:{
+
+            }
+
+        })
+
+    </script>
+
+
+
+
+</body>

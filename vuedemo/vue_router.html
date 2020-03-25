@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Vue 路由demo</title>
+    <script src="https://cdn.staticfile.org/vue/2.4.2/vue.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue-router/2.7.0/vue-router.min.js"></script>
+    <style>
+
+        #ddd{
+            background-color:yellow;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+
+        <h1 id = 'ddd'>欢迎来到我App</h1>
+        <p>
+            <!-- 使用router-link组件来导航 -->
+            <!-- 通过传入to指令来指定链接 -->
+            <!-- router-link会默认渲染成一个<a>标签 -->
+            <router-link :to="{path:'/foo'}" tag = 'span' > go to Foo</router-link>
+            <router-link to='/bar' active-class:ddd> go to Bar</router-link>
+        </p>
+        <!-- 路由出口，路由匹配到的组件将渲染到这里 -->
+        <router-view></router-view>
+
+
+
+
+    </div>
+
+
+    <script>
+        // 导入vue和router，要调用Vue.use(VueRouter)
+        // 定义路由组件，可以从其他文件import
+        const Foo = { template: '<div>foddddddddo</div>' };
+        const Bar = { template: '<div>baaaaaaaaaaaar</div>' };
+
+        // 定义路由，每个路由应该映射一个组件，其中component可以是通过Vue.extend()创建的组件构造器，或者只是一个组件配置对象，
+        const routes = [
+            { path: '/foo', component: Foo },
+            { path: '/bar', component: Bar }
+
+        ]
+
+        // 创建路由实例
+        const router = new VueRouter({
+            routes
+        })
+
+        // 创建，挂载根实例，用router来配置参数注入路由，让整个app都有路由功能
+        const app = new Vue({
+
+            router
+
+        }).$mount('#app')
+
+    </script>
+
+</body>
+
+</html>
